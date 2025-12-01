@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> ViDiC: Video Difference Captioning </title>
+
+  <link rel="icon" href="static/images/LINK_LOGO.png">
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="stylesheet" href="./static/css/leaderboard.css">
+  <link rel="stylesheet" href="./static/css/video-player.css">
+
+  <script type="text/javascript" src="static/js/sort-table.js" defer></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/explorer-index.js"></script>
+
+  <style>
+    .no-sort {
+        cursor: default;
+        pointer-events: none;
+        background-image: none !important; /* Remove the sort arrow */
+    }
+    /* Custom style for video pairs comparisons */
+    .video-pair-container {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+    .video-wrapper {
+        flex: 1;
+        max-width: 48%;
+    }
+    .caption-box {
+        background-color: #f5f5f5;
+        border-radius: 8px;
+        padding: 15px;
+        text-align: left;
+        margin-top: 10px;
+        font-size: 0.9em;
+    }
+    .caption-label {
+        font-weight: bold;
+        color: #363636;
+    }
+  </style>
+
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <p style="font-size:18px; display: inline; margin-right: -2px; margin-top: 12px;">🔥</p>
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://github.com/NJU-LINK">
+            <b>NJU-LINK Lab</b> 
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title is-bold">
+            <!-- You might want to replace this logo with a ViDiC specific one if available -->
+            <!-- <img src="static/images/logo.png" style="width:1.6em;vertical-align: middle" alt="Logo"/> -->
+            <span class="if-vidcap" style="vertical-align: middle">ViDiC</span>
+            </h1>
+          <h2 class="subtitle is-3 publication-subtitle", style="margin-bottom: 20px;">
+            ViDiC: Video Difference Captioning
+          </h2>
+          
+          <div class="is-size-5 publication-authors", style="width: 80%; margin: 20px auto;", >
+            <span class="author-block", style="font-size:24px"><a href="https://www.nju-link.com/">NJU-LINK LAB</a></span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup style="color:#a317c3;">1</sup>Nanjing University</span> &nbsp;&nbsp;
+            <span class="author-block"><sup style="color:#ed734b">2</sup>Kuaishou Technology</span>
+          </div>
+          
+          <div class="is-size-6 publication-authors">
+            <span class="author-block" style="font-size: 0.9em;">* Equal Contribution. † Corresponding Author.</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/25XX.XXXXX" 
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv (Checking)</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/NJU-LINK/ViDiC"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code & Data</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/NJU-LINK/ViDiC-1K"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <p style="font-size:18px">🤗</p>
+                  </span>
+                  <span>ViDiC-1K</span>
+                </a>
+              </span>
+              <!-- Leaderboard Link. -->
+              <span class="link-block">
+                <a href="#leaderboard"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <p style="font-size:18px">🏆</p>
+                  </span>
+                  <span>Leaderboard</span>
+                </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container" style="margin-bottom: 2vh;">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="columns is-centered">
+          <div class="column">
+            <div class="content has-text-centered">
+              <!-- Placeholder for Figure 1 from paper -->
+              <img src="static/images/page.png" alt="ViDiC Teaser: Comparison of compositional, spatial, and temporal changes" style="max-width: 100%; border: 1px solid #ddd; border-radius: 10px;"/>
+              <p style="text-align: center; margin-left: auto; margin-right: auto; width: 50%;" >
+                Figure 1: Review of Video Difference Captioning framework.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="content has-text-justified">
+          Understanding visual differences between dynamic scenes requires the comparative perception of compositional, spatial, and temporal changes—a capability that remains underexplored in existing vision-language systems. While prior work on Image Difference Captioning (IDC) has enabled models to describe semantic changes between static images, these approaches fail to capture motion continuity, event evolution, or editing consistency over time. 
+          <br><br>
+          We introduce the <strong>ViDiC (Video Difference Captioning)</strong> task and its corresponding <strong>ViDiC-1K</strong> dataset, designed to evaluate the ability of Multimodal Large Language Models (MLLMs) to provide fine-grained descriptions of similarities and differences between video pairs. ViDiC comprises 1,000 curated video pairs annotated with over 4,000 comparative checklist items, covering seven categories: <strong>Subject, Style, Background, Cinematography, Motion, Location (Position), and Playback Techniques</strong>.
+          <br><br>
+          To ensure reliable evaluation, we propose a dual-checklist framework that measures the accuracy of similarity and difference separately, using a scalable LLM-as-a-Judge protocol. Experiments on twelve state-of-the-art multimodal models reveal a significant performance gap in their comparative description and difference perception abilities, with all models underperforming on playback- and camera-related dimensions.
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+</div>
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    updateRowNumbers();
+    document.querySelector("#results").addEventListener("click", updateRowNumbers);
+  });
+
+  function updateRowNumbers() {
+    const rows = document.querySelectorAll("#results tbody tr");
+    rows.forEach((row, index) => {
+      row.querySelector("td").innerText = index + 1;
+    });
+  }
+</script>
+
+<section class="section">
+  <div class="container">
+    
+    <div class="columns is-centered">
+      <div class="column is-full has-text-centered content">
+
+        <h2 class="title is-3" id="leaderboard">Leaderboard</h2>
+        <div class="content">
+          <div class="video-duration" style="text-align: left; margin-bottom: 20px;">
+            <p>
+              We evaluate video comparison using Accuracy over a set of Dual-Checklist questions. <br>
+              <strong>Avg:</strong> Average Score &nbsp;&nbsp;
+              <strong>Diff:</strong> Difference Accuracy &nbsp;&nbsp;
+              <strong>Sim:</strong> Similarity Accuracy
+            </p>
+            <p>
+              <strong>Fine-grained Categories:</strong> <br>
+              Subj (Subject), Motion, Pos (Position), Backgr (Background), Cam (Camera Work), Style, Tech (Playback Technique).
+            </p>
+            <p>
+              <span style="font-size: 0.9em;">💡 indicates specific "thinking" or reasoning modes activated in models.</span>
+            </p>
+          </div>
+
+          <!-- Leaderboard Data taken from Table 2 of ViDiC.pdf -->
+          <table class="js-sort-table" id="results" style="margin-left: auto; margin-right: auto; font-size: 0.9em;">
+            <thead>
+              <tr>
+                <th rowspan="2" class="no-sort" style="vertical-align: middle; width: 30px;"><strong>#</strong></th>
+                <th rowspan="2" class="no-sort" style="vertical-align: middle; width: 180px;"><strong>Model</strong></th>
+                <th rowspan="2" class="no-sort" style="vertical-align: middle; width: 60px;"><strong>Param</strong></th>
+                
+                <th colspan="3" style="vertical-align: middle; background-color: #f0fcf7; border-bottom: 2px solid #22a56e;"><strong style="color: #22a56e;">Overall Metrics (%)</strong></th>
+                <th colspan="7" style="vertical-align: middle; border-bottom: 2px solid #555;"><strong>Category Performance (%)</strong></th>
+              </tr>
+              <tr>
+                <!-- Overall Sub-columns -->
+                <th class="js-sort-number" style="background-color: #f0fcf7;"><strong>Avg</strong></th>
+                <th class="js-sort-number" style="background-color: #f0fcf7;"><strong>Diff.</strong></th>
+                <th class="js-sort-number" style="background-color: #f0fcf7;"><strong>Sim.</strong></th>
+                
+                <!-- Category Sub-columns -->
+                <th class="js-sort-number"><strong>Subj</strong></th>
+                <th class="js-sort-number"><strong>Motion</strong></th>
+                <th class="js-sort-number"><strong>Pos.</strong></th>
+                <th class="js-sort-number"><strong>Backgr.</strong></th>
+                <th class="js-sort-number"><strong>Cam.</strong></th>
+                <th class="js-sort-number"><strong>Style</strong></th>
+                <th class="js-sort-number"><strong>Tech.</strong></th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Closed Source Models -->
+              <tr>
+                <td>-</td>
+                <td style="text-align: left;"><b>Gemini-2.5-Pro💡</b></td>
+                <td>-</td>
+                <td><b>66.72</b></td><td>63.73</td><td>75.33</td>
+                <td>67.71</td><td>62.78</td><td>68.24</td><td>70.65</td><td>59.97</td><td>75.79</td><td>74.32</td>
+              </tr>
+              <tr>
+                <td>-</td>
+                <td style="text-align: left;"><b>GPT-5💡</b></td>
+                <td>-</td>
+                <td>62.94</td><td>57.32</td><td>79.17</td>
+                <td>61.52</td><td>57.78</td><td>65.31</td><td>69.15</td><td>57.39</td><td>77.60</td><td>54.66</td>
+              </tr>
+              <tr>
+                <td>-</td>
+                <td style="text-align: left;"><b>Gemini-2.5-Flash💡</b></td>
+                <td>-</td>
+                <td>58.87</td><td>52.11</td><td>78.37</td>
+                <td>59.63</td><td>51.29</td><td>57.23</td><td>63.98</td><td>52.82</td><td>81.58</td><td>55.41</td>
+              </tr>
+              <tr>
+                <td>-</td>
+                <td style="text-align: left;"><b>Gemini-2.0-Flash💡</b></td>
+                <td>-</td>
+                <td>53.71</td><td>50.26</td><td>63.66</td>
+                <td>58.90</td><td>48.71</td><td>57.86</td><td>57.11</td><td>47.30</td><td>55.79</td><td>18.92</td>
+              </tr>
+              <tr>
+                <td>-</td>
+                <td style="text-align: left;"><b>GPT-4o💡</b></td>
+                <td>-</td>
+                <td>49.95</td><td>39.14</td><td><b>81.12</b></td>
+                <td>46.79</td><td>43.53</td><td>51.89</td><td>53.73</td><td>49.18</td><td>77.89</td><td>27.03</td>
+              </tr>
+
+              <!-- Open Source Models -->
+              <tr>
+                <td>-</td>
+                <td style="text-align: left;"><b>Qwen3-VL-32B</b></td>
+                <td>32B</td>
+                <td>61.38</td><td>58.54</td><td>71.50</td>
+                <td>64.60</td><td>51.77</td><td>62.00</td><td>68.62</td><td>52.66</td><td>74.86</td><td>47.83</td>
+              </tr>
+              <tr>
+                <td>-</td>
+                <td style="text-align: left;"><b>InternVL-3.5💡</b></td>
+                <td>38B</td>
+                <td>52.44</td><td>46.25</td><td>70.30</td>
+                <td>52.66</td><td>43.04</td><td>53.77</td><td>59.80</td><td>47.80</td><td>72.63</td><td>20.27</td>
+              </tr>
+              <tr>
+                <td>-</td>
+                <td style="text-align: left;"><b>Qwen2.5-VL-Inst</b></td>
+                <td>72B</td>
+                <td>49.71</td><td>42.56</td><td>70.30</td>
+                <td>48.07</td><td>44.82</td><td>48.11</td><td>55.92</td><td>46.42</td><td>68.95</td><td>22.97</td>
+              </tr>
+              <tr>
+                <td>-</td>
+                <td style="text-align: left;"><b>Mimo-VL-SFT</b></td>
+                <td>7B</td>
+                <td>52.59</td><td>46.51</td><td>70.17</td>
+                <td>54.39</td><td>46.55</td><td>51.25</td><td>57.31</td><td>48.37</td><td>67.71</td><td>25.33</td>
+              </tr>
+              <tr>
+                <td>-</td>
+                <td style="text-align: left;"><b>GLM-4.1V💡</b></td>
+                <td>9B</td>
+                <td>40.95</td><td>33.99</td><td>61.08</td>
+                <td>42.60</td><td>34.35</td><td>38.13</td><td>47.26</td><td>33.83</td><td>64.58</td><td>14.67</td>
+              </tr>
+              <tr>
+                <td>-</td>
+                <td style="text-align: left;"><b>Llama-3.2</b></td>
+                <td>11B</td>
+                <td>19.43</td><td>5.23</td><td>61.01</td>
+                <td>14.48</td><td>20.31</td><td>17.84</td><td>13.44</td><td>29.56</td><td>40.00</td><td>11.70</td>
+              </tr>
+
+          </tbody>                                                   
+        </table> 
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- DATASET SECTION -->
+<section class="hero is-light is-small">
+  <div class="hero-body has-text-centered">
+  <h1 class="title is-1 mathvista_other">
+    <span class="mathvista_other" style="vertical-align: middle">Dataset Examples</span>
+  </h1>
+  </div>
+</section>
+            
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths" style="width: 100%;">
+        <h2 class="title is-3">Video Comparison Pairs</h2>
+        <div class="content has-text-justified">
+          <p style="text-align: center;", class="mt-3"><strong>Each example in ViDiC consists of a video pair (Source/Target), a generated caption, and a fine-grained checklist.</strong>
+          </p>
+
+        <div id="results-carousel" class="carousel results-carousel">  
+          
+          <!-- Example 1: Background Change -->
+          <div class="content has-text-centered">
+            <h4 class="subtitle is-5">Type: Background Change</h4>
+            <div class="video-pair-container">
+                <div class="video-wrapper">
+                    <p><strong>Video A (Source)</strong></p>
+                    <!-- Replacing src with placeholders as specific video files are unknown from context -->
+                    <video src="static/videos/placeholder_bg_1.mp4" controls width="100%"></video>
+                </div>
+                <div class="video-wrapper">
+                    <p><strong>Video B (Target)</strong></p>
+                    <video src="static/videos/placeholder_bg_2.mp4" controls width="100%"></video>
+                </div>
+            </div>
+            <div class="caption-box">
+                <p><span class="caption-label">Similarity Question:</span> Are the two videos filmed at different locations?</p>
+                <p><span class="caption-label">Correct Answer:</span> No (Same location)</p>
+                <p><span class="caption-label">Difference Question:</span> Is the sun unobstructed at the end of video A, while in video B it remains covered due to clouds?</p>
+                <p><span class="caption-label">Correct Answer:</span> Yes</p>
+                <hr>
+                <p><span class="caption-label">Generated Caption:</span> Similarities: Both were filmed from the same fixed camera position over a rice paddy during sunset. Differences: Video A features a visual sun creating strong reflection. In contrast, Video B's cloud-obscured sun produces a soft reflection.</p>
+            </div>
+          </div>
+
+          <!-- Example 2: Style Change -->
+          <div class="content has-text-centered">
+             <h4 class="subtitle is-5">Type: Style Change</h4>
+            <div class="video-pair-container">
+                <div class="video-wrapper">
+                    <p><strong>Video A (Source)</strong></p>
+                    <video src="static/videos/placeholder_style_1.mp4" controls width="100%"></video>
+                </div>
+                <div class="video-wrapper">
+                    <p><strong>Video B (Target)</strong></p>
+                    <video src="static/videos/placeholder_style_2.mp4" controls width="100%"></video>
+                </div>
+            </div>
+            <div class="caption-box">
+                <p><span class="caption-label">Checklist:</span> Is video A in an oil painting style while video B is not?</p>
+                <p><span class="caption-label">Ground Truth:</span> Yes</p>
+            </div>
+          </div>
+
+          <!-- Example 3: Playback Technique -->
+          <div class="content has-text-centered">
+            <h4 class="subtitle is-5">Type: Playback Technique</h4>
+            <div class="video-pair-container">
+                <div class="video-wrapper">
+                    <p><strong>Video A</strong></p>
+                    <video src="static/videos/placeholder_play_1.mp4" controls width="100%"></video>
+                </div>
+                <div class="video-wrapper">
+                    <p><strong>Video B</strong></p>
+                    <video src="static/videos/placeholder_play_2.mp4" controls width="100%"></video>
+                </div>
+            </div>
+            <div class="caption-box">
+                <p><span class="caption-label">Checklist:</span> Is video A played normally, while video B is reversed?</p>
+                <p><span class="caption-label">Ground Truth:</span> Yes</p>
+            </div>
+          </div>
+
+      </div> 
+
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="content has-text-centered">
+          <h2 class="title is-3">Benchmark Statistics</h2>
+          <!-- Updated statistics images logic -->
+           <div class="columns has-text-centered">
+            <img src="static/images/stats.png" alt="ViDiC Teaser: Comparison of compositional, spatial, and temporal changes" style="max-width: 100%; border: 1px solid #ddd; border-radius: 10px;"/>
+              <p style="text-align: center; margin-left: auto; margin-right: auto; width: 50%;" >
+                Distribution of checklist items across 7 categories.
+              </p>
+           </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+<!-- RESULTS SECTION -->
+<section class="hero is-light is-small">
+  <div class="hero-body has-text-centered">
+    <h1 class="title is-1 mathvista_other">Evaluation Methodology</h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="content has-text-justified">
+      <p>
+        We propose a <strong>Dual-Checklist Evaluation Framework</strong> to ensure reliable measuring of comparative captioning. Traditional metrics measure textual similarity rather than factual correctness. ViDiC overcomes this by quantifying factual accuracy using a human-annotated checklist composed of binary questions derived from predefined dimensions (Subject, Style, Background, etc.).
+      </p>
+      <ul>
+        <li><strong>Similarity Questions:</strong> Framed inversely to penalize hallucinations. A response is correct if it confirms similarity or omits the attribute.</li>
+        <li><strong>Difference Questions:</strong> Framed as verifiable propositions about specific differences. The model must correctly affirm these true statements.</li>
+      </ul>
+      <p>
+        We leverage an <strong>LLM-as-a-Judge protocol</strong> (using GPT-5-Mini or equivalent high-capability models) to compare the generated captions against the ground-truth checklist without accessing the video pixels directly. This ensures scalable and interpretable benchmarking.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
+</section>
+<section class="hero is-light is-small">
+  <div class="hero-body has-text-centered">
+    <h1 class="title is-1 mathvista_other" id="citation">Citation</h1>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <pre><code>
+    @misc{wu2025vidic,
+          title={ViDiC: Video Difference Captioning}, 
+          author={Jiangtao Wu and Shihao Li and Zhaozhou Bian and Yuanxing Zhang and Jialu Chen and Runzhe Wen and An Ping and Yiwen He and Jiakai Wang and Jiaheng Liu},
+          year={2025},
+          eprint={25XX.XXXXX}, 
+          archivePrefix={arXiv},
+          primaryClass={cs.CV},
+    }
+</code></pre>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container" style="width: 60%;">
+  <style>
+      pre {
+        background-color: #f4f4f4;
+        padding: 5px; 
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        overflow-x: auto; 
+    }
+    code {
+        font-family: Consolas, "Courier New", monospace;
+        color: #d63384; 
+    }
+  </style>
+
+
+  </div>
+</section>
+
+
+<footer class="footer">
+    <div class="content has-text-centered">
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p style="text-align: center;">
+            This website is adapted from <a href="https://if-vidcap.github.io/">IF-VidCap</a>, licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+</footer>
+
+</body>
+</html>
