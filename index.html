@@ -124,7 +124,7 @@
                   <span class="icon">
                       <i class="ai ai-arxiv"></i>
                   </span>
-                  <span>arXiv (Checking)</span>
+                  <span>arXiv</span>
                 </a>
               </span>
               <!-- Code Link. -->
@@ -134,7 +134,7 @@
                   <span class="icon">
                       <i class="fab fa-github"></i>
                   </span>
-                  <span>Code & Data</span>
+                  <span>Code</span>
                   </a>
               </span>
               <!-- Dataset Link. -->
@@ -366,94 +366,106 @@
             
 <section class="section">
   <div class="container">
-    <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths" style="width: 100%;">
-        <h2 class="title is-3">Video Comparison Pairs</h2>
-        <div class="content has-text-justified">
-          <p style="text-align: center;", class="mt-3"><strong>Each example in ViDiC consists of a video pair (Source/Target), a generated caption, and a fine-grained checklist.</strong>
-          </p>
+<div class="columns is-centered">
+  <div class="column is-four-fifths">
+    <!-- 标题和副标题居中显示 -->
+    <div class="content has-text-centered">
+      <h2 class="title is-3">Video Comparison Pairs</h2>
+      <p class="mt-3">
+        <strong>Each example in ViDiC consists of a video pair and a fine-grained checklist.</strong>
+      </p>
+    </div>
 
-        <div id="results-carousel" class="carousel results-carousel">  
-          
-          <!-- Example 1: Background Change -->
-          <div class="content has-text-centered">
-            <h4 class="subtitle is-5">Type: Background Change</h4>
-            <div class="video-pair-container">
-                <div class="video-wrapper">
-                    <p><strong>Video A (Source)</strong></p>
-                    <!-- Replacing src with placeholders as specific video files are unknown from context -->
-                    <video src="static/videos/placeholder_bg_1.mp4" controls width="100%"></video>
-                </div>
-                <div class="video-wrapper">
-                    <p><strong>Video B (Target)</strong></p>
-                    <video src="static/videos/placeholder_bg_2.mp4" controls width="100%"></video>
-                </div>
-            </div>
-            <div class="caption-box">
-                <p><span class="caption-label">Similarity Question:</span> Are the two videos filmed at different locations?</p>
-                <p><span class="caption-label">Correct Answer:</span> No (Same location)</p>
-                <p><span class="caption-label">Difference Question:</span> Is the sun unobstructed at the end of video A, while in video B it remains covered due to clouds?</p>
-                <p><span class="caption-label">Correct Answer:</span> Yes</p>
-                <hr>
-                <p><span class="caption-label">Generated Caption:</span> Similarities: Both were filmed from the same fixed camera position over a rice paddy during sunset. Differences: Video A features a visual sun creating strong reflection. In contrast, Video B's cloud-obscured sun produces a soft reflection.</p>
+    <!-- 轮播组件容器 -->
+    <div id="results-carousel" class="carousel results-carousel">  
+      
+      <!-- 轮播项 1: 每个视频组都是一个独立的 div，作为轮播的直接子项 -->
+      <div class="item-1">
+        <div class="columns is-multiline is-vcentered">
+          <!-- Video A -->
+          <div class="column is-half has-text-centered">
+            <p><strong>Video A</strong></p>
+            <video src="static/videos/20_bottom_weather.mp4" controls preload="metadata" width="100%"></video>
+          </div>
+          <!-- Video B -->
+          <div class="column is-half has-text-centered">
+            <p><strong>Video B</strong></p>
+            <video src="static/videos/20_top_weather.mp4" controls preload="metadata" width="100%"></video>
+          </div>
+          <!-- 说明文字，占据一整行 -->
+          <div class="column is-full">
+            <div class="caption-box content">
+              <p><span class="caption-label">Similarity Question:</span> Are the man's clothes different between the two videos?</p>
+              <p><span class="caption-label">Correct Answer:</span> No</p>
+              <p><span class="caption-label">Difference Question:</span> Does the Source video feature diffuse, cool-toned light, while the Target video features bright, warm-toned backlighting from the upper left?</p>
+              <p><span class="caption-label">Correct Answer:</span> Yes</p>
+              <p><span class="caption-label">Difference Question:</span> Is the sky in the Source video completely grey and cloudy, in contrast to the Target video where the sky is blue with a visible sun?</p>
+              <p><span class="caption-label">Correct Answer:</span> Yes</p>
             </div>
           </div>
-
-          <!-- Example 2: Style Change -->
-          <div class="content has-text-centered">
-             <h4 class="subtitle is-5">Type: Style Change</h4>
-            <div class="video-pair-container">
-                <div class="video-wrapper">
-                    <p><strong>Video A (Source)</strong></p>
-                    <video src="static/videos/placeholder_style_1.mp4" controls width="100%"></video>
-                </div>
-                <div class="video-wrapper">
-                    <p><strong>Video B (Target)</strong></p>
-                    <video src="static/videos/placeholder_style_2.mp4" controls width="100%"></video>
-                </div>
-            </div>
-            <div class="caption-box">
-                <p><span class="caption-label">Checklist:</span> Is video A in an oil painting style while video B is not?</p>
-                <p><span class="caption-label">Ground Truth:</span> Yes</p>
-            </div>
-          </div>
-
-          <!-- Example 3: Playback Technique -->
-          <div class="content has-text-centered">
-            <h4 class="subtitle is-5">Type: Playback Technique</h4>
-            <div class="video-pair-container">
-                <div class="video-wrapper">
-                    <p><strong>Video A</strong></p>
-                    <video src="static/videos/placeholder_play_1.mp4" controls width="100%"></video>
-                </div>
-                <div class="video-wrapper">
-                    <p><strong>Video B</strong></p>
-                    <video src="static/videos/placeholder_play_2.mp4" controls width="100%"></video>
-                </div>
-            </div>
-            <div class="caption-box">
-                <p><span class="caption-label">Checklist:</span> Is video A played normally, while video B is reversed?</p>
-                <p><span class="caption-label">Ground Truth:</span> Yes</p>
-            </div>
-          </div>
-
-      </div> 
-
         </div>
       </div>
-    </div>
+
+      <!-- 轮播项 2 -->
+      <div class="item-2">
+        <div class="columns is-multiline is-vcentered">
+          <!-- Video A -->
+          <div class="column is-half has-text-centered">
+            <p><strong>Video A</strong></p>
+            <video src="static/videos/66_same_pair_0.mp4" controls preload="metadata" width="100%"></video>
+          </div>
+          <!-- Video B -->
+          <div class="column is-half has-text-centered">
+            <p><strong>Video B</strong></p>
+            <video src="static/videos/66_same_pair_1.mp4" controls preload="metadata" width="100%"></video>
+          </div>
+          <!-- 说明文字 -->
+          <div class="column is-full">
+            <div class="caption-box content">
+              <p><span class="caption-label">Similarity Question:</span> Do the clothing attributes of the shooter and goalkeeper vary between the Source and Target videos?</p>
+              <p><span class="caption-label">Correct Answer:</span> No</p>
+              <p><span class="caption-label">Difference Question:</span> Regarding the camera's position, is it true that the Source video is filmed more to the side, while the Target video is filmed from more centrally?</p>
+              <p><span class="caption-label">Correct Answer:</span> Yes</p>
+              <p><span class="caption-label">Difference Question:</span> Is the building in the background more clearly visible in the Target video compared to the Source video?</p>
+              <p><span class="caption-label">Correct Answer:</span> Yes</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 轮播项 3 -->
+      <div class="item-3">
+        <div class="columns is-multiline is-vcentered">
+          <!-- Video A -->
+          <div class="column is-half has-text-centered">
+            <p><strong>Video A</strong></p>
+            <video src="static/videos/110488_src.mp4" controls preload="metadata" width="100%"></video>
+          </div>
+          <!-- Video B -->
+          <div class="column is-half has-text-centered">
+            <p><strong>Video B</strong></p>
+            <video src="static/videos/110488_tgt.mp4" controls preload="metadata" width="100%"></video>
+          </div>
+          <!-- 说明文字 -->
+          <div class="column is-full">
+            <div class="caption-box content">
+              <p><span class="caption-label">Similarity Question:</span> Are the camera movements between the Source and Target videos different?</p>
+              <p><span class="caption-label">Correct Answer:</span> No</p>
+              <p><span class="caption-label">Difference Question:</span> Regarding the lighting, is the Source video illuminated by bright, white daylight, in contrast to the Target video which is illuminated by the warm, colored light of a sunrise or sunset?</p>
+              <p><span class="caption-label">Correct Answer:</span> Yes</p>
+              <p><span class="caption-label">Difference Question:</span> In terms of atmosphere, does the Source video show a blue sky with white clouds, while the Target video shows a sky with warmer colors?</p>
+              <p><span class="caption-label">Correct Answer:</span> Yes</p>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
 
     <div class="columns is-centered">
       <div class="column">
         <div class="content has-text-centered">
           <h2 class="title is-3">Benchmark Statistics</h2>
-          <!-- Updated statistics images logic -->
-           <div class="columns has-text-centered">
-            <img src="static/images/stats.png" alt="ViDiC Teaser: Comparison of compositional, spatial, and temporal changes" style="max-width: 100%; border: 1px solid #ddd; border-radius: 10px;"/>
-              <p style="text-align: center; margin-left: auto; margin-right: auto; width: 50%;" >
-                Distribution of checklist items across 7 categories.
-              </p>
-           </div>
+          <img src="static/images/stats.png" alt="ViDiC Teaser: Comparison of compositional, spatial, and temporal changes" style="max-width: 100%; border: 1px solid #ddd; border-radius: 10px;"/>
         </div>
       </div>
     </div>
