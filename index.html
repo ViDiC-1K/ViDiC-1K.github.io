@@ -94,16 +94,15 @@
       <div class="columns is-centered">
         <div class="column has-text-centered">
           <h1 class="title is-1 publication-title is-bold">
-            <!-- You might want to replace this logo with a ViDiC specific one if available -->
-            <!-- <img src="static/images/logo.png" style="width:1.6em;vertical-align: middle" alt="Logo"/> -->
-            <span class="if-vidcap" style="vertical-align: middle">ViDiC</span>
+            <img src="static/images/logo.png" style="width:1.6em;vertical-align: middle" alt="Logo"/>
+            <span class="vidic" style="vertical-align: middle">ViDiC</span>
             </h1>
           <h2 class="subtitle is-3 publication-subtitle", style="margin-bottom: 20px;">
-            ViDiC: Video Difference Captioning
+            A benchmark for Video Difference Captioning
           </h2>
           
           <div class="is-size-5 publication-authors", style="width: 80%; margin: 20px auto;", >
-            <span class="author-block", style="font-size:24px"><a href="https://www.nju-link.com/">NJU-LINK LAB</a></span>
+            <span class="author-block", style="font-size:24px"><a href="https://github.com/NJU-LINK">NJU-LINK LAB</a></span>
           </div>
 
           <div class="is-size-5 publication-authors">
@@ -125,7 +124,7 @@
               </span>
               <!-- Code Link. -->
               <span class="link-block">
-                <a href="https://github.com/NJU-LINK/ViDiC"
+                <a href="https://github.com/NJU-LINK/ViDiC-1K"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-github"></i>
@@ -236,31 +235,33 @@
           <table class="js-sort-table" id="results" style="margin-left: auto; margin-right: auto; font-size: 0.9em;">
             <thead>
               <tr>
-                <th rowspan="2" class="no-sort" style="vertical-align: middle; width: 30px;"><strong>#</strong></th>
-                <th rowspan="2" class="no-sort" style="vertical-align: middle; width: 180px;"><strong>Model</strong></th>
-                <th rowspan="2" class="no-sort" style="vertical-align: middle; width: 60px;"><strong>Param</strong></th>
-                
-                <th colspan="3" style="vertical-align: middle; background-color: #f0fcf7; border-bottom: 2px solid #22a56e;"><strong style="color: #22a56e;">Overall Metrics (%)</strong></th>
-                <th colspan="7" style="vertical-align: middle; border-bottom: 2px solid #555;"><strong>Category Performance (%)</strong></th>
+                <th rowspan="2" class="no-sort" style="vertical-align: middle; width: 30px;" data-js-sort-colNum="none"><strong>#</strong></th>
+                <th rowspan="2" class="no-sort" style="vertical-align: middle; width: 180px;" data-js-sort-colNum="none"><strong>Model</strong></th>
+                <th rowspan="2" class="no-sort" style="vertical-align: middle; width: 60px;" data-js-sort-colNum="none"><strong>Param</strong></th>
+                <th colspan="3" style="vertical-align: middle; background-color: #f0fcf7; border-bottom: 2px solid #22a56e;" data-js-sort-colNum="3"><strong style="color: #22a56e;">Overall Metrics (%)</strong></th>
+                <!-- "Category Performance" 覆盖的列从索引 6 开始 -->
+                <th colspan="7" style="vertical-align: middle; border-bottom: 2px solid #555;" data-js-sort-colNum="6"><strong>Category Performance (%)</strong></th>
               </tr>
               <tr>
+                <!-- 
+                  为第二行的子表头添加正确的列索引 (从0开始计数) 
+                -->
                 <!-- Overall Sub-columns -->
-                <th class="js-sort-number" style="background-color: #f0fcf7;"><strong>Avg</strong></th>
-                <th class="js-sort-number" style="background-color: #f0fcf7;"><strong>Diff.</strong></th>
-                <th class="js-sort-number" style="background-color: #f0fcf7;"><strong>Sim.</strong></th>
-                
+                <th class="js-sort-number" style="background-color: #f0fcf7;" data-js-sort-colNum="3"><strong>Avg</strong></th>
+                <th class="js-sort-number" style="background-color: #f0fcf7;" data-js-sort-colNum="4"><strong>Diff.</strong></th>
+                <th class="js-sort-number" style="background-color: #f0fcf7;" data-js-sort-colNum="5"><strong>Sim.</strong></th>
                 <!-- Category Sub-columns -->
-                <th class="js-sort-number"><strong>Subj</strong></th>
-                <th class="js-sort-number"><strong>Motion</strong></th>
-                <th class="js-sort-number"><strong>Pos.</strong></th>
-                <th class="js-sort-number"><strong>Backgr.</strong></th>
-                <th class="js-sort-number"><strong>Cam.</strong></th>
-                <th class="js-sort-number"><strong>Style</strong></th>
-                <th class="js-sort-number"><strong>Tech.</strong></th>
+                <th class="js-sort-number" data-js-sort-colNum="6"><strong>Subj</strong></th>
+                <th class="js-sort-number" data-js-sort-colNum="7"><strong>Motion</strong></th>
+                <th class="js-sort-number" data-js-sort-colNum="8"><strong>Pos.</strong></th>
+                <th class="js-sort-number" data-js-sort-colNum="9"><strong>Backgr.</strong></th>
+                <th class="js-sort-number" data-js-sort-colNum="10"><strong>Cam.</strong></th>
+                <th class="js-sort-number" data-js-sort-colNum="11"><strong>Style</strong></th>
+                <th class="js-sort-number" data-js-sort-colNum="12"><strong>Tech.</strong></th>
               </tr>
             </thead>
             <tbody>
-              <!-- Closed Source Models -->
+              <!-- 表格主体内容保持不变 -->
               <tr>
                 <td>-</td>
                 <td style="text-align: left;"><b>Gemini-2.5-Pro💡</b></td>
@@ -340,9 +341,8 @@
                 <td>19.43</td><td>5.23</td><td>61.01</td>
                 <td>14.48</td><td>20.31</td><td>17.84</td><td>13.44</td><td>29.56</td><td>40.00</td><td>11.70</td>
               </tr>
-
-          </tbody>                                                   
-        </table> 
+            </tbody>                                                   
+          </table>                                                   
         </div>
 
       </div>
